@@ -109,12 +109,16 @@ class Application_Model_Operator
     private $acceptaEmail;
 
     /*
+     * Inverse Side
+     * 
 	 * @OneToMany (targetEntity="Application_Model_Sejur", mappedBy="operator")
 	 * @var ArrayCollection;
 	 */
     private $sejururiAdaugate;
 
     /**
+     * Inverse side
+     * 
 	 * @OneToMany (targetEntity="Application_Model_Circuit", mappedBy="operator")
 	 * @var ArrayCollection;
 	 */

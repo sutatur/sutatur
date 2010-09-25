@@ -31,6 +31,8 @@ class Front_Api_Util_Bootstrap
     public static function getResource($resource)
     {
         $bootstrap = self::getBootstrap();
+        
+        
         return $bootstrap->getResource($resource);
     }
 

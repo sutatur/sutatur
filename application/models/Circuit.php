@@ -63,7 +63,7 @@ class Application_Model_Circuit
     private $operator;
     
     /**
-     * @ManyToMany (targetEntity="Application_Model_Imagine", mappedBy="operator")
+     * @ManyToMany (targetEntity="Application_Model_Imagine", mappedBy="operator", cascade={"persist", "remove"})
      * @JoinTable (name="poze_adaugate",
      * 	joinColumns={@JoinColumn(name="oferta_id", referencedColumnName="id")},
      *  inverseJoinColumns={@JoinColumn(name="imagine_id",referencedColumnName="id")}
@@ -73,7 +73,10 @@ class Application_Model_Circuit
     private $imagini;
     
     /**
-     * @OneToMany (targetEntity="Application_Model_Destinatie", mappedBy="circuit")
+     * @ManyToMany (targetEntity="Application_Model_Destinatie", inversedBy="destinatiiCircuite")
+     * @JoinTable (name="destinatii_circuite",
+     * 			   joinColumns={@JoinColumn(name="circuit_id",referencedColumnName="id")},
+     *  		   inverseJoinColumns={@JoinColumn(name="destinatie_id",referencedColumnName="id")})	
      * @var ArrayCollection
      */
     private $destinatii;
@@ -214,6 +217,11 @@ class Application_Model_Circuit
     {
         $this->imagini = new \Doctrine\Common\Collections\ArrayCollection();
         $this->destinatii = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    public function getImagini()
+    {
+        return $this->imagini->toArray();
     }
     
 }

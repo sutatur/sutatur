@@ -3,7 +3,7 @@
 include 'cli-config.php';
 
 $helperSet = new \Symfony\Components\Console\Helper\HelperSet();
-    foreach ($helpers as $name => $helper) {
+    foreach ($helperSet as $name => $helper) {
 	    $helperSet->set($helper, $name);
 	}
 
