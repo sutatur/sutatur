@@ -1,0 +1,4 @@
+#Sun Sep 26 15:42:53 EEST 2010
+eclipse.preferences.version=1
+defaultPHPServer=Local Zend Server
+phpServers=<server><base_url>http\://localhost</base_url><hostname>localhost</hostname><name>Default PHP Web Server</name></server>\u0005<server><base_url>http\://localhost\:10081</base_url><zendserver_default_port>10081</zendserver_default_port><InstallLocation>E\:\\Zend\\</InstallLocation><localserver>true</localserver><zendserver_defaulturl>/ZendServer</zendserver_defaulturl><zendserver_enabled>true</zendserver_enabled><document_root>E\:\\Zend\\Apache2\\htdocs</document_root><hostname>localhost</hostname><port>10081</port><name>Local Zend Server</name></server>

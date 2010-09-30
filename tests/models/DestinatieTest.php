@@ -2,6 +2,10 @@
 class Model_DestinatieTest extends ControllerTestCase
 {
     const MODEL_NAME = 'Application_Model_Destinatie';
+
+    /**
+     * @var $model Application_Model_Destinatie
+     */
     private $model;
     /**
      * @var $em \Doctrine\ORM\EntityManager
@@ -12,20 +16,30 @@ class Model_DestinatieTest extends ControllerTestCase
     {
         parent::setUp();
         $this->_em = $this->application->getBootstrap()->getResource('Entitymanagerfactory');
-        //$this->em = Front_Api_Util_Bootstrap::getResource('Entitymanagerfactory');
-        /**
-         * @var $model Application_Model_Destinatie
-         */
+
         $this->model = new Application_Model_Destinatie;
-        $this->model->setNume('Romania');
-        
-        
     }
  
-    public function testCanPersist()
+    public function testCreereTara()
     {
+        $this->model->setNume('Romania');
+        $this->model->esteTara();
         $this->_em->persist($this->model);
         $this->_em->flush();
+    }
+    
+    public function testCircuiteInDestinatie()
+    {
+        /**
+         * 
+         * @var $destinatie Application_Model_Destinatie  
+         */
+        $destinatie = $this->_em->getRepository('Application_Model_Destinatie')->findOneByNume('Suceava');
+        $this->assertNotNull($destinatie,'Nu am gasit nici o destinatie cu numele Suceava.');
+        $circuite = $destinatie->getDestinatieCircuite();
+        //var_dump($circuite->toArray(),"Circuite returnate:");
+        foreach ($circuite as $circuit)
+            $this->assertGreaterThan(1,strlen($circuit->getNume()));      
     }
     
     public function testCanReadFromRepository()
@@ -34,25 +48,42 @@ class Model_DestinatieTest extends ControllerTestCase
          * @var $tara Application_Model_Destinatie
          */
         $tara = $this->_em->getRepository('Application_Model_Destinatie')->findOneByNume('Romania');
+        $this->assertNotNull($tara,'Nu s-a gasit tara!');
         $this->assertEquals($tara->getNume(),'Romania');
         
     }
     
-    public function testCanCreateChildDestinatie()
+    public function testCanCreateOras()
     {
-        $tara = $this->_em->getRepository('Application_Model_Destinatie')->findOneByNume('Romania');
-        $dest = new Application_Model_Destinatie()    ;
-        $dest->setNume('Bucovina');
-        $dest->setTara($tara);
-        $this->_em->persist($dest);
+        $numeOras = 'Suceava';
+        $numeTara = 'Romania';
+        $tara = $this->_em->getRepository('Application_Model_Destinatie')->findOneByNume($numeTara);
+        $oras = new Application_Model_Destinatie();
+        $oras->setNume($numeOras);
+        $oras->setTara($tara);
+        $this->_em->persist($oras);
+        try {
+        	$this->_em->flush();
+        } catch (PDOException $e) {
+            echo "Destinatia deja exista"."\n";
+        } 
+        
+        /**
+         * @var $dest Application_Model_Destinatie
+         */
+        $dest = $this->_em->getRepository('Application_Model_Destinatie')->findOneByNume($numeOras);
+        $this->assertEquals($dest->getNume(),$numeOras);
+        $this->assertEquals($dest->getTara()->getNume(),$numeTara);
+      //  $this->_em->remove($dest);
+      try {
         $this->_em->flush();
-        $dest = $this->_em->getRepository('Application_Model_Destinatie')->findOneByNume('Bucovina');
-        $this->assertEquals($dest->getNume(),'Bucovina');
-        $this->_em->remove($dest);
-        $this->_em->flush(); 
+      }
+    catch (\Doctrine\ORM\ORMException $e) {
+           echo "Caught Exception ('{$e->getMessage()}')\n";
+        } 
     }
     
     public function tearDown() {
-    	$this->_em->remove($this->model);
+      	//$this->_em->remove($this->model);
     }
 }

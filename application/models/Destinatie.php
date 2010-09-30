@@ -1,7 +1,9 @@
 <?php
+use \Doctrine\Common\Collections\ArrayCollection;
 /**
- * @Entity
- * @Table (name="destinatie") 
+ * @Entity (repositoryClass="Application_Model_RepositoryDestinatie")
+ * @Table (name="destinatie", uniqueConstraints={@UniqueConstraint(columns={"tara_id", "nume"})}))
+ * @HasLifecycleCallbacks
  */
 class Application_Model_Destinatie
 {
@@ -11,7 +13,7 @@ class Application_Model_Destinatie
      * @var int
      */
     private $id;
-
+    
     /**
      * Nume destinatie
      * @Column(name="nume", type="string", length=20, columnDefinition="CHAR(40) NOT NULL") 
@@ -20,15 +22,26 @@ class Application_Model_Destinatie
     private $nume;
     
     /**
-     * @OneToOne (targetEntity = "Application_Model_Destinatie", cascade={"persist", "remove"})
-     * @JoinColumn(name="destinatie_parent_id", referencedColumnName="id")
-     * @var Application_Model_Destinatie
+     * @OneToMany (targetEntity="Application_Model_Destinatie", mappedBy="tara")
+     */
+    private $orase;
+    
+    /**
+     * @ManyToOne (targetEntity="Application_Model_Destinatie", inversedBy="orase")
+     * @JoinColumn (name="tara_id", referencedColumnName="id")
      */
     private $tara;
     /**
+     * Bidirectional - Returneaza circuitele pt o anumita destinatie
      * @ManyToMany(targetEntity="Application_Model_Circuit", mappedBy="destinatii")
      */
-    private $circuite;
+    private $destinatieCircuite;
+    
+    /**
+     * @Column (name="imagine", type="string", length=13, nullable="true", columnDefinition="CHAR (12) NULL")
+     * @var string
+     */
+    private $imagine; 
 	/**
      * @return the $nume
      */
@@ -53,14 +66,47 @@ class Application_Model_Destinatie
         return $this->tara;
     }
 
-	/**
-     * @param $tara the $tara to set
+    /**
+     * @return the $orase
      */
-    public function setTara (Application_Model_Destinatie $tara)
+    public function getOrase ()
+    {
+        return $this->orase;
+    }
+
+	/**
+     * @param $orase the $orase to set
+     */
+    public function adaugaOras (Application_Model_Destinatie $oras)
+    {
+        $this->tara = $this;
+        $this->orase[] = $oras;
+    }
+    
+	/**
+     * @return the $imagine
+     */
+    public function getImagine ()
+    {
+        return $this->imagine;
+    }
+
+	/**
+     * @param $imagine the $imagine to set
+     */
+    public function setImagine ($imagine)
+    {
+        $this->imagine = $imagine;
+    }
+
+	public function esteTara ()
+    {
+        $this->parent = null;
+    }
+    public function setTara(Application_Model_Destinatie $tara)
     {
         $this->tara = $tara;
     }
-
 	/**
      * @return the $id
      */
@@ -77,13 +123,25 @@ class Application_Model_Destinatie
         $this->id = $id;
     }
     
-	/**
-     * @return the $circuite
+    /**
+     * @param Application_Model_Circuit $circuit
      */
-    public function getCircuite ()
+    public function adaugaCircuit(Application_Model_Circuit $circuit)
     {
-        return $this->circuite;
+        $this->destinatieCircuite[] = $circuit;
     }
     
+    public function __construct()
+    {
+        $this->destinatieCircuite= new ArrayCollection();
+        $this->orase = new ArrayCollection();
+    }
+	/**
+     * @return the $destinatieCircuite
+     */
+    public function getDestinatieCircuite ()
+    {
+        return $this->destinatieCircuite;
+    }
 }
 

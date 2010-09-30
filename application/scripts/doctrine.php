@@ -2,12 +2,16 @@
 
 include 'cli-config.php';
 
-$helperSet = new \Symfony\Components\Console\Helper\HelperSet();
-    foreach ($helperSet as $name => $helper) {
+/**
+ * @var $helpers Array
+ */ 
+
+$helperSet = new \Symfony\Component\Console\Helper\HelperSet();
+    foreach ($helpers as $name => $helper) {
 	    $helperSet->set($helper, $name);
 	}
 
-$cli = new \Symfony\Components\Console\Application('Doctrine Command Line Interface', Doctrine\Common\Version::VERSION);
+$cli = new \Symfony\Component\Console\Application('Doctrine Command Line Interface', Doctrine\Common\Version::VERSION);
 $cli->setCatchExceptions(true);
 $cli->setHelperSet($helperSet);
 $cli->addCommands(array(

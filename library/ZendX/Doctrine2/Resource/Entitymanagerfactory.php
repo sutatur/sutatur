@@ -216,12 +216,12 @@ class ZendX_Doctrine2_EntityManagerFactory
         $config->setQueryCacheImpl($cache);
         $config->setProxyDir($options['proxyDir']);
         $config->setProxyNamespace($options['proxyNamespace']);
-        $config->setUseCExtension((bool)$options['useCExtension']);
+        //$config->setUseCExtension((bool)$options['useCExtension']);
 
-        if(!isset($options['connectionOptions']) || !is_array($options['connectionOptions'])) {
+/*        if(!isset($options['connectionOptions']) || !is_array($options['connectionOptions'])) {
             throw new ZendX_Doctrine2_Exception("Invalid Doctrine DBAL Connection Options given.");
         }
-        $connectionOptions = $options['connectionOptions'];
+*/        $connectionOptions = $options['connectionOptions'];
 
         if(isset($options['sqllogger'])) {
             if(is_string($options['sqllogger']) && class_exists($options['sqllogger'])) {

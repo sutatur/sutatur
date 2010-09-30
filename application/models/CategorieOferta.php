@@ -17,11 +17,25 @@ class Application_Model_CategorieOferta
 
     /**
      * Nume operator
-     * @Column(name="nume", type="string", length=20, columnDefinition="CHAR(20) NOT NULL") 
+     * @Column(name="nume", type="string", length=20, unique=true, columnDefinition="CHAR(20) NOT NULL") 
      * @var string
      */
     private $nume;
     
+    
+    /**
+     * Bidirectional owning side
+     * @OnetoMany (targetEntity="Application_Model_Circuit", mappedBy="categorieOferta" )
+     */
+    private $circuite;
+    
+    public function __construct($nume = null)
+    {
+        if ($nume !== null)
+            $this->setNume($nume);
+            
+        $this->circuite = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 	public function getId ()
     {
         return $this->id;
@@ -40,6 +54,26 @@ class Application_Model_CategorieOferta
 	public function setNume ($nume)
     {
         $this->nume = $nume;
+    }
+	/**
+     * @return the $circuite
+     */
+    public function getCircuite ()
+    {
+        return $this->circuite;
+    }
+
+	/**
+     * @param $circuite
+     */
+    public function adaugaCircuit (Application_Model_Circuit $circuit)
+    {
+        $this->circuite[] = $circuit;
+    }
+
+    public function eliminaCircuit (Application_Model_Circuit $circuit)
+    {
+        $this->circuite->removeElement($circuit);
     }
 
 }

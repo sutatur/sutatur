@@ -11,6 +11,7 @@ class IndexController extends Zend_Controller_Action
     public function indexAction()
     {
         // action body
+        $this->getInvokeArg('bootstrap')->log->debug("I'm at indexAction");
     }
 
 
