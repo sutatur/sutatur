@@ -1,5 +1,7 @@
-#Sun Sep 19 12:25:49 EEST 2010
+#Sun Sep 26 16:46:34 EEST 2010
 eclipse.preferences.version=1
-include_path=0;/z100Turism\u00055;org.zend.php.framework.CONTAINER\u00055;com.zend.php.phpunit.CONTAINER\u00051;C\:/Program Files (x86)/Zend/ZendServer/bin/PEAR/Doctrine
+include_path=1;E\:/Zend/ZendServer/bin/PEAR/Doctrine\u00050;/z100Turism\u00055;org.zend.php.framework.CONTAINER\u00055;com.zend.php.phpunit.CONTAINER
 org.eclipse.php.core.phpForamtterIndentationSize=4
 org.eclipse.php.core.phpForamtterUseTabs=false
+phpVersion=php5.3
+use_asp_tags_as_php=false
