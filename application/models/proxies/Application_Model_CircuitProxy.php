@@ -27,6 +27,18 @@ class Application_Model_CircuitProxy extends \Application_Model_Circuit implemen
     }
 
     
+    public function adaugaDestinatie(\Application_Model_Destinatie $destinatie)
+    {
+        $this->_load();
+        return parent::adaugaDestinatie($destinatie);
+    }
+
+    public function getDestinatii()
+    {
+        $this->_load();
+        return parent::getDestinatii();
+    }
+
     public function getId()
     {
         $this->_load();
@@ -141,18 +153,6 @@ class Application_Model_CircuitProxy extends \Application_Model_Circuit implemen
         return parent::getImagini();
     }
 
-    public function adaugaDestinatie(\Application_Model_Destinatie $destinatie)
-    {
-        $this->_load();
-        return parent::adaugaDestinatie($destinatie);
-    }
-
-    public function getDestinatii()
-    {
-        $this->_load();
-        return parent::getDestinatii();
-    }
-
     public function adaugaImagine(\Application_Model_Imagine $imagine)
     {
         $this->_load();
@@ -186,6 +186,6 @@ class Application_Model_CircuitProxy extends \Application_Model_Circuit implemen
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'nume', 'pret', 'dataAdaugare', 'dataValabilitate', 'dataModificare', 'descriere', 'promovata', 'arhivata', 'operator', 'imagini', 'destinatii', 'categorieOferta');
+        return array('__isInitialized__', 'id', 'nume', 'pret', 'dataAdaugare', 'dataValabilitate', 'dataModificare', 'descriere', 'promovata', 'arhivata', 'operator', 'imagini', 'categorieOferta', 'destinatii');
     }
 }

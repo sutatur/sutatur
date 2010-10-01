@@ -1,2 +1,4 @@
 #ignore html files
 *.html
+application/logs/*
+application/models/proxies/*
