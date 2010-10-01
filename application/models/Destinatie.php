@@ -128,7 +128,8 @@ class Application_Model_Destinatie
      */
     public function adaugaCircuit(Application_Model_Circuit $circuit)
     {
-        $this->destinatieCircuite[] = $circuit;
+    //    $this->destinatieCircuite[] = $circuit;
+        $this->destinatieCircuite->add($circuit);
     }
     
     public function __construct()

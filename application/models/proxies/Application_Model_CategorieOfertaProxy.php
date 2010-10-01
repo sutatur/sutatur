@@ -51,22 +51,22 @@ class Application_Model_CategorieOfertaProxy extends \Application_Model_Categori
         return parent::setNume($nume);
     }
 
-    public function getCircuite()
+    public function getOfertae()
     {
         $this->_load();
-        return parent::getCircuite();
+        return parent::getOfertae();
     }
 
-    public function adaugaCircuit(\Application_Model_Circuit $circuit)
+    public function adaugaOferta(\Application_Model_Oferta $oferta)
     {
         $this->_load();
-        return parent::adaugaCircuit($circuit);
+        return parent::adaugaOferta($oferta);
     }
 
-    public function eliminaCircuit(\Application_Model_Circuit $circuit)
+    public function eliminaOferta(\Application_Model_Oferta $oferta)
     {
         $this->_load();
-        return parent::eliminaCircuit($circuit);
+        return parent::eliminaOferta($oferta);
     }
 
 

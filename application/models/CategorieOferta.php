@@ -1,4 +1,5 @@
 <?php
+use \Doctrine\Common\Collections\ArrayCollection();
 /**
  * @Entity
  * @Table (name="categorie_oferta")
@@ -25,16 +26,16 @@ class Application_Model_CategorieOferta
     
     /**
      * Bidirectional owning side
-     * @OnetoMany (targetEntity="Application_Model_Circuit", mappedBy="categorieOferta" )
+     * @OnetoMany (targetEntity="Application_Model_Oferta", mappedBy="categorieOferta" )
      */
-    private $circuite;
+    private $oferte;
     
     public function __construct($nume = null)
     {
         if ($nume !== null)
             $this->setNume($nume);
             
-        $this->circuite = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->oferte = new ArrayCollection();
     }
 	public function getId ()
     {
@@ -56,24 +57,24 @@ class Application_Model_CategorieOferta
         $this->nume = $nume;
     }
 	/**
-     * @return the $circuite
+     * @return \Doctrine\Common\Collections\ArrayCollection()
      */
-    public function getCircuite ()
+    public function getOferte ()
     {
-        return $this->circuite;
+        return $this->oferte;
     }
 
 	/**
-     * @param $circuite
+     * @param $oferta Application_Model_Oferta
      */
-    public function adaugaCircuit (Application_Model_Circuit $circuit)
+    public function adaugaOferta (Application_Model_Oferta $oferta)
     {
-        $this->circuite[] = $circuit;
+        $this->oferte->add($oferta);
     }
 
-    public function eliminaCircuit (Application_Model_Circuit $circuit)
+    public function eliminaOferta (Application_Model_Oferta $oferta)
     {
-        $this->circuite->removeElement($circuit);
+        $this->oferte->removeElement($oferta);
     }
 
 }
