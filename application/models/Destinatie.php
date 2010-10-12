@@ -132,8 +132,10 @@ class Application_Model_Destinatie
         $this->destinatieCircuite->add($circuit);
     }
     
-    public function __construct()
+    public function __construct($id='')
     {
+        if (isset($id) && is_numeric($id))
+            $this->setId($id);
         $this->destinatieCircuite= new ArrayCollection();
         $this->orase = new ArrayCollection();
     }

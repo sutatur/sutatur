@@ -51,10 +51,10 @@ class Application_Model_CategorieOfertaProxy extends \Application_Model_Categori
         return parent::setNume($nume);
     }
 
-    public function getOfertae()
+    public function getOferte()
     {
         $this->_load();
-        return parent::getOfertae();
+        return parent::getOferte();
     }
 
     public function adaugaOferta(\Application_Model_Oferta $oferta)
@@ -72,6 +72,6 @@ class Application_Model_CategorieOfertaProxy extends \Application_Model_Categori
 
     public function __sleep()
     {
-        return array('__isInitialized__', 'id', 'nume', 'circuite');
+        return array('__isInitialized__', 'id', 'nume', 'oferte');
     }
 }

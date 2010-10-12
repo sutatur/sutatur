@@ -10,7 +10,7 @@ use \Doctrine\Common\Collections\ArrayCollection;
  * @author angel
  *
  */
-abstract class Application_Model_Oferta
+abstract class Application_Model_Oferta extends Application_Model_Abstract
 {
  /**
      * @Id @Column (name="id", type="integer")
@@ -21,10 +21,10 @@ abstract class Application_Model_Oferta
 
     /**
      * Nume operator
-     * @Column(name="nume", type="string", length=20) 
+     * @Column(name="nume", type="string", length=180) 
      * @var string
      */
-    private $nume;
+    private $nume = 'sex';
     
  	/**
      * @Column(name="pret", type="decimal", precision=8, scale=2)
@@ -209,9 +209,9 @@ abstract class Application_Model_Oferta
         return $this->arhivata === 1 ? true : false;
     }
     
-    public function arhiveaza()
+    public function arhiveaza($flag)
     {
-        $this->arhivata = 1;
+        $this->arhivata = $flag;
     }
     
     public function estePromovata()
@@ -219,9 +219,9 @@ abstract class Application_Model_Oferta
         return $this->promovata === 1 ? true : false;
     }
     
-    public function promoveaza()
+    public function promoveaza($flag)
     {
-        $this->promovata = 1;
+        $this->promovata = $flag;
     }
     
 	public function __construct()
@@ -236,10 +236,25 @@ abstract class Application_Model_Oferta
         return $this->imagini->toArray();
     }
     /**
+     * @param $imagini array
+     */
+    public function setImagini ($imagini)
+    {
+        if (is_array($imagini))
+            foreach ($imagini as  $numeImagine)
+            {
+                $imagine = new Application_Model_Imagine($numeImagine);
+                $this->imagini->add($imagine);
+            }
+        else
+            throw new Application_Model_Exception(get_class($this).'::'.__FUNCTION__. ' trebuie sa primeasca ca parametru un array');
+    }
+
+    /**
      * 
      * @param Application_Model_Imagine $imagine
      */
-    public function adaugaImagine(Application_Model_Imagine $imagine)
+	public function adaugaImagine(Application_Model_Imagine $imagine)
     {
         $this->imagini[] = $imagine;
     }
@@ -270,6 +285,20 @@ abstract class Application_Model_Oferta
     public function updated()
     {
         $this->dataModificare = new DateTime("now");
-    }    
+    }
+    
+    public function setData($data)
+    {
+        isset($data['id']) ? $this->setId($data['id']) : '';
+        isset($data['nume']) ? $this->setNume($data['nume']) : '';
+        isset($data['categorieOferta']) ? $this->setCategorieOferta($data['categorieOferta']) : '';
+        isset($data['descriere']) ? $this->setDescriere($data['categorieOferta']) : '';
+        isset($data['dataValabilitate']) ? $this->setDataValabilitate($data['dataValabilitate']) : '';
+        isset($data['imagini']) ? $this->setImagini($data['imagini']) : '';
+        isset($data['operator']) ? $this->setOperator($data['operator']) : '';
+        isset($data['pret']) ? $this->setPret($data['pret']) : '';
+        isset($data['promovata']) ? $this->promoveaza($data['promovata']) : '';
+        isset($data['arhivata']) ? $this->arhiveaza($data['arhivata']) : '';
+   }    
 }
 
