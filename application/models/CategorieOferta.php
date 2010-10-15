@@ -30,9 +30,9 @@ class Application_Model_CategorieOferta
      */
     private $oferte;
     
-    public function __construct($nume = null)
+    public function __construct($nume = '')
     {
-        if ($nume !== null)
+        if (isset($nume) && strlen($nume) > 0)
             $this->setNume($nume);
             
         $this->oferte = new ArrayCollection();

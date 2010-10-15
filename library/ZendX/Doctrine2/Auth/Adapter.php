@@ -9,7 +9,7 @@ class ZendX_Doctrine2_Auth_Adapter implements Zend_Auth_Adapter_Interface
     /**
      * Doctrine EntityManager
      *
-     * @var Doctrine\ORM\EntityManager
+     * @var \Doctrine\ORM\EntityManager
      */
     protected $em;
 

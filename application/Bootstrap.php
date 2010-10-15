@@ -40,4 +40,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         // Zend_debug::dump($autoloader->getResourceTypes());
         return $autoloader;
     }
+    
+    protected function _initRegistry()
+    {
+        $this->bootstrap(array('Entitymanagerfactory','log'));
+        Zend_Registry::set('em',$this->getResource('Entitymanagerfactory'));
+        Zend_Registry::set('logger',$this->getResource('log'));
+    }
 }

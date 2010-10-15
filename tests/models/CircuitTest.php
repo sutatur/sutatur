@@ -1,4 +1,9 @@
-<?php 
+<?php
+
+require_once '../application/models/Imagine.php';
+require_once '../application/models/CategorieOferta.php';
+require_once '../application/models/Destinatie.php';
+
 class Model_CircuitTest extends ControllerTestCase
 {
     
@@ -101,6 +106,59 @@ class Model_CircuitTest extends ControllerTestCase
 
        $this->assertEquals($this->destinatieNume,$destinatii[0]->getNume());
     }
+    
+    public static function dataForSetDataMethodTest()
+    {
+        return array(
+        
+            array('data' =>  array (
+                                    'nume' => 'TestOK',
+                                    'imagini' => array(new Application_Model_Imagine('xx.jpg'),new Application_Model_Imagine('yy.jpg')),
+                                    'operator' => null,
+                                    'categorieOferta' => new Application_Model_CategorieOferta('Revelion'),
+                                    'descriere' => 'descriere')
+                   ),
+              
+            // data with incorrect model values; should fail    
+            array('data' =>  array (
+                                    'nume' => 'TestBroken',
+                                    'imagini' => 'x',
+                                    'operatmor' => null,
+                                    'categorieOferta' => new Application_Model_CategorieOferta('Revelion'),
+                                    'descripere' => 'descriere')        
+                    )
+        
+            );
+    }
+    /**
+	 * @dataProvider dataForSetDataMethodTest 
+     */
+    public function testCanSetDataWithValidValues($data)
+    {
+        try {
+        $sejur = new Application_Model_Circuit();
+        $sejur->setData($data);
+        
+        $this->assertGreaterThan(0,strlen($sejur->getNume()));
+        $this->assertEquals(2,count($sejur->getImagini()));
+        $this->assertType('Application_Model_CategorieOferta',$sejur->getCategorieOferta());
+        $this->assertNull($sejur->getOperator());
+        $i = $sejur->getImagini();
+        $this->assertContainsOnly('Application_Model_Imagine',$i);
+        $this->assertNotNull($i[0]);
+        $this->assertEquals('xx.jpg',$i[0]->getNume());
+        } catch (Application_Model_Exception $e)
+        {
+            echo "OK: Exception caught. ".$e->getMessage();
+            return;
+        }
+        
+        unset($data);
+        unset($i);
+        unset($sejur);
+    }
+
+    
 	/**
      * @depends testCanPersist
      */    

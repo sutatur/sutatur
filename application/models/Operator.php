@@ -5,7 +5,7 @@
  * @author angel
  *
  */
-      
+use \Doctrine\Common\Collections;      
 class Application_Model_Operator
 {
 
@@ -439,8 +439,8 @@ class Application_Model_Operator
 
 	public function __construct ()
     {
-        $this->sejururiAdaugate = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->circuiteAdaugate = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sejururiAdaugate = new ArrayCollection();
+        $this->circuiteAdaugate = new ArrayCollection();
     }
 }
 

@@ -28,7 +28,20 @@ class Application_Model_Sejur  extends Application_Model_Oferta
     {
         $this->destinatie = $destinatie;
     }
-
+    
+    public function __construct() {
+    	parent::__construct();
+    }
+    
+    /**
+     * 
+     * @param Array $data
+     */
+    public function populate($data)
+    {
+        parent::populate();
+        if (isset($data['destinatie'])) $this->setDestinatie($data['destinatie']);
+    }
     
   }
 

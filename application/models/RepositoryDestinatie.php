@@ -31,5 +31,17 @@ class Application_Model_RepositoryDestinatie extends EntityRepository
                          ->getResult();
 
         return $circuite[0]->getDestinatii();
-            }
+    }
+    
+    public function getListaTari()
+    {
+        $dql = 'SELECT d FROM Application_Model_Destinatie d WHERE d.tara is null';
+        return $this->_em->createQuery($dql)->getArrayResult();
+    }
+    
+    public function getListaDestinatiiTara($taraId = '')
+    {
+        $dql = 'SELECT d.id,d.nume from Application_Model_Destinatie d WHERE d.tara = ?1';
+        return $this->_em->createQuery($dql)->setParameter(1,$taraId)->getArrayResult();
+    }
 }

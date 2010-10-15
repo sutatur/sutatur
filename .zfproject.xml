@@ -15,6 +15,8 @@
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="OperatorLogin"/>
+        <formFile formName="OfertaCircuit"/>
+        <formFile formName="OfertaSejur"/>
       </formsDirectory>
       <layoutsDirectory enabled="false"/>
       <modelsDirectory>
@@ -36,6 +38,10 @@
               <actionMethod actionName="index"/>
             </controllerFile>
             <controllerFile controllerName="Index"/>
+            <controllerFile controllerName="Oferta">
+              <actionMethod actionName="index"/>
+              <actionMethod actionName="adauga"/>
+            </controllerFile>
           </controllersDirectory>
           <formsDirectory enabled="false"/>
           <layoutsDirectory enabled="false"/>
@@ -47,6 +53,12 @@
               </viewControllerScriptsDirectory>
               <viewControllerScriptsDirectory forControllerName="Index">
                 <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Oferta">
+                <viewScriptFile forActionName="index"/>
+              </viewControllerScriptsDirectory>
+              <viewControllerScriptsDirectory forControllerName="Oferta">
+                <viewScriptFile forActionName="adauga"/>
               </viewControllerScriptsDirectory>
             </viewScriptsDirectory>
             <viewHelpersDirectory/>
@@ -98,6 +110,7 @@
         <testApplicationControllerDirectory>
           <testApplicationControllerFile filesystemName="IndexControllerTest.php"/>
           <testApplicationControllerFile filesystemName="IndexControllerTest.php"/>
+          <testApplicationControllerFile filesystemName="OfertaControllerTest.php"/>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
       <testLibraryDirectory>

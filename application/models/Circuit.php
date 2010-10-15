@@ -21,8 +21,9 @@ class Application_Model_Circuit extends Application_Model_Oferta
     
  	public function __construct()
     {
+        parent::__construct();
+
         $this->destinatii = new ArrayCollection();
-        
         $this->dataAdaugare = $this->dataModificare = new \DateTime("now");
     }
     
@@ -42,6 +43,26 @@ class Application_Model_Circuit extends Application_Model_Oferta
     public function getDestinatii()
     {
            return $this->destinatii->toArray();
+    }
+	/**
+     * @param $destinatii array
+     */
+    public function setDestinatii ($destinatii)
+    {
+        if (is_array($destinatii))
+            foreach ($destinatii as  $destinatie_id)
+            {
+                $destinatie = new Application_Model_Destinatie($destinatie_id);
+                $this->destinatii->add($destinatie);
+                unset($destinatie);
+            }
+        else
+        throw new Application_Model_Exception(get_class($this).'::'.__FUNC__. 'trebuie sa primeasca ca parametru un array');
+    }
+    
+    public function setData($data)
+    {
+        isset($data['destinatii']) ? $this->setDestinatii($data['destinatii']) : '';
     }
 }
 
