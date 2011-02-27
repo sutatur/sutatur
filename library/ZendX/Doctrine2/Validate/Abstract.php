@@ -28,6 +28,20 @@ abstract class ZendX_Doctrine2_Validate_Abstract extends Zend_Validate_Db_Abstra
         return $this;
     }
 
+     /**
+     * Sets the value to be validated and clears the messages and errors arrays
+     *
+     * @param  mixed $value
+     * @return void
+     * @see Zend_Validate_Db_Abstract
+     */
+    protected function  _setValue($value)
+    {
+       if (is_object($value))
+           $value = $value->getId();     
+        
+        parent::_setValue($value);
+    }    
     /**
      * Run query and returns matches, or null if no matches are found.
      *
@@ -50,7 +64,6 @@ abstract class ZendX_Doctrine2_Validate_Abstract extends Zend_Validate_Db_Abstra
         /**
          * Build select object
          */
-            
        $qb = $this->_adapter->createQueryBuilder()
             ->select('e.' . $this->_field )
             ->from($this->_table, 'e')

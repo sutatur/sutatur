@@ -17,7 +17,7 @@ class ZendX_Doctrine2_Validate_RecordExists extends ZendX_Doctrine2_Validate_Abs
         $valid = true;
         $this->_setValue($value);
 
-        $result = $this->_query($value);
+        $result = $this->_query($this->_value);
         if (!$result) {
             $valid = false;
             $this->_error(self::ERROR_NO_RECORD_FOUND);

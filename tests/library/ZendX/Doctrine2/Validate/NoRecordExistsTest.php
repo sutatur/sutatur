@@ -18,7 +18,7 @@ require_once 'ZendX/Doctrine2/Validate/NoRecordExists.php';
  * @subpackage UnitTests
  * @group      ZendX_Doctrine2
  */
-class Zend_Validate_Db_NoRecordExistsTest extends ControllerTestCase
+class Zend_Validate_Db_NoRecordExistsTest extends PHPUnit_Framework_TestCase
 {
 
     /**

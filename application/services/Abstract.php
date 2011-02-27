@@ -1,4 +1,5 @@
 <?php
+use sutaturism\models\Application_Model_Repository;
 abstract class Application_Service_Abstract
 {
     /**
@@ -24,38 +25,123 @@ abstract class Application_Service_Abstract
     protected $modelClass;
     
     /**
+     * Form used to validate input data
+     * @var Zend_Form
+     */
+    protected $modelForm;
+    
+    /**
      * @var Zend_Log
      */
-    private $logger;
+    protected $logger;
     
     /** 
      * @var Array
      */
-    private $data;
+    protected $data;
 
     /**
      * @var \Doctrine\ORM\EntityManager
      */
-    protected  $dao;
+    private  $repository;
     
     const MODEL_CLASS = '';
-    
-    /**
-     * Returns a form object
-     * @return Zend_Form
-     * @param string $type
-     */
-    public function getForm($type)
+    const MODEL_FORM = '';
+
+    public function __construct(Application_Model_Repository $repository)
     {
-        $type  = ucfirst($type);
-        if (!isset($this->forms[$type])) {
-            $class = 'Application_Form_' . $type;
-            $this->forms[$type] = new $class;
+        $this->logger = Zend_Registry::get('logger');
+        $this->repository = Zend_Registry::get('em');
+        
+        $childClass = get_class($this);
+        $this->modelClass = $childClass::MODEL_CLASS;
+        $this->modelForm =  $childClass::MODEL_FORM;
+        
+        $this->repository = $repository;
+    }
+    
+    
+	/**
+     * @param $data the $data to set
+     */
+    public function setData ($data)
+    {
+        $this->data = $data;
+    }
+
+    public function getData ()
+    {
+        return $this->data;
+    }     
+    
+    public function save($data)
+    {
+        if ($this->checkAcl('save'))
+            throw new Application_Service_Exception('Drepturi insuficiente');
+
+        if (count($data) < 1)
+            throw new Application_Service_Exception('Nici o data transmisa spre a fi salvata');
+            
+        /** @var $form Zend_Form */    
+        $form = $this->getForm($this->modelForm);
+         
+        if (!$form->isValid($this->data)) {
+            $this->logger->log('Form '.get_class($form).' is not valid',ZEND_LOG::WARN);
+            return false;
         }
-        return $this->forms[$type];
+        
+        $updating = false;
+        
+        /** 
+         * @var $model Application_Model_Oferta 
+         */
+        $model = null;
+
+        if ( isset($this->data['id']) && (int)$this->data['id'] > 0)
+        {
+            $ofertaId = $this->data['id'];
+            $model = $this->repository->find($this->modelClass,$ofertaId);
+            $this->logger->log('Updating '.strstr($this->modelClass,'Application_Model_'). $this->data['id'].'...',ZEND_LOG::DEBUG);    
+
+            if (!$model)
+                throw new Application_Service_Exception(strstr($this->modelClass,'Application_Model_').' cu id '.$this->data['id']. 'nu exista pt actualizare');
+            
+            $updating = true;   
+        } else {
+            $model = new $this->modelClass;
+        }
+
+        $this->repository->save($model);
+
+        try {
+            $this->repository->flush();
+        } catch (ORMException $e) {
+            throw new Application_Service_Exception ($e->getMessage());
+        }
+       
+        return $updating==true ? true : $model->getId();        
     }    
     
-    public function setIdentity ($identity)
+    public function delete($id)
+    {
+        $childClass = get_class($this);
+        $model = $this->repository->find($this->modelClass,$id);
+        
+        if (is_null($model))
+            throw new Application_Service_Exception('Nu am gasit '.strstr($this->modelClass,'Application_Model_').' cu id: '.$id); 
+        try {
+    	    $this->repository->remove($model);
+    	    $this->repository->flush();
+        }
+        catch (ORMException $e)
+        {
+            throw new Application_Service_Exception('Nu am putut sterge '.strstr($this->modelClass,'Application_Model_').' cu id: '.$id.';\n '.$e->getMessage());
+        }
+        return true;
+        
+    }
+
+    protected function setIdentity ($identity)
     {
         if (is_array($identity))
             {
@@ -74,7 +160,8 @@ abstract class Application_Service_Abstract
         $this->_identity = $identity;
         return $this;
     }
-    public function getIdentity ()
+    
+    protected function getIdentity ()
     {
         if (null === $this->_identity) {
             $auth = Zend_Auth::getInstance();
@@ -87,21 +174,20 @@ abstract class Application_Service_Abstract
         return $this->_identity;
     }
     
-    public function setAcl($acl)
+    protected function setAcl($acl)
     {
         $this->_acl = $acl;
     }
 
-    public function getAcl()
+    protected function getAcl()
     {
         if (null === $this->_acl) {
             $this->setAcl(new Application_Model_Acl_Sutatur());
         }
         return $this->_acl;
     }    
-    
 
-    public function checkAcl($action)
+    protected function checkAcl($action)
     {
         return $this->getAcl()->isAllowed(
             $this->getIdentity(), 
@@ -109,14 +195,21 @@ abstract class Application_Service_Abstract
             $action
         );
     }
-
-    public function __construct()
-    {
-        $this->logger = Zend_Registry::get('logger');
-        $this->dao = Zend_Registry::get('em');
         
-        $childClass = get_class($this);
-        $this->modelClass = $childClass::MODEL_CLASS;
-    }
+    /**
+     * Returns a form object
+     * @return Zend_Form
+     * @param string $type
+     */
+    public function getForm($name)
+    {
+        $name  = ucfirst($name);
+        if (!isset($this->forms[$name])) {
+            $class = 'Application_Form_' . $name;
+            $this->forms[$name] = new $class;
+        }
+        return $this->forms[$name];
+    }    
+  
 }
 ?>

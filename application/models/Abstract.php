@@ -4,7 +4,9 @@
  * 
  * 
  */
-abstract class Application_Model_Abstract
+
+
+abstract class Application_Model_Abstract implements Application_Model_Entity
 {
     /**
      * Array ce stocheaza datele pt fiecare model
@@ -20,7 +22,6 @@ abstract class Application_Model_Abstract
         $modelProperties = get_class_vars(get_class());
 //        
         foreach ($data as $atribut  => $value) {
-            var_dump($atribut);
             //exit();
         	if (isset($modelProperties[$atribut]))
         	{
@@ -33,6 +34,8 @@ abstract class Application_Model_Abstract
         	
         }
         
-    }    
+    }
+
+  
 }
 ?>

@@ -1,5 +1,5 @@
 <?php 
-class Model_ImagineTest extends ControllerTestCase
+class Model_ImagineTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var $em \Doctrine\ORM\EntityManager

@@ -1,5 +1,6 @@
-<?php 
-class Model_DestinatieTest extends ControllerTestCase
+<?php
+require_once 'Zend/Application.php'; 
+class Model_DestinatieTest extends PHPUnit_Framework_TestCase
 {
     const MODEL_NAME = 'Application_Model_Destinatie';
 
@@ -14,8 +15,13 @@ class Model_DestinatieTest extends ControllerTestCase
     
     public function setUp()
     {
-        parent::setUp();
-        $this->_em = $this->application->getBootstrap()->getResource('Entitymanagerfactory');
+        $this->bootstrap = new Zend_Application(APPLICATION_ENV,
+              APPLICATION_PATH . '/configs/application.ini'
+        );
+        $this->bootstrap->bootstrap();        
+        
+//        $this->_em = $this->application->getBootstrap()->getResource('Entitymanagerfactory');
+        $this->_em = $this->bootstrap->bootstrap('Entitymanagerfactory');
 
         $this->model = new Application_Model_Destinatie;
     }
@@ -52,37 +58,38 @@ class Model_DestinatieTest extends ControllerTestCase
         $this->assertEquals($tara->getNume(),'Romania');
         
     }
-    
-    public function testCanCreateOras()
-    {
-        $numeOras = 'Suceava';
-        $numeTara = 'Romania';
-        $tara = $this->_em->getRepository('Application_Model_Destinatie')->findOneByNume($numeTara);
-        $oras = new Application_Model_Destinatie();
-        $oras->setNume($numeOras);
-        $oras->setTara($tara);
-        $this->_em->persist($oras);
-        try {
-        	$this->_em->flush();
-        } catch (PDOException $e) {
-            echo "Destinatia deja exista"."\n";
-        } 
-        
-        /**
-         * @var $dest Application_Model_Destinatie
-         */
-        $dest = $this->_em->getRepository('Application_Model_Destinatie')->findOneByNume($numeOras);
-        $this->assertEquals($dest->getNume(),$numeOras);
-        $this->assertEquals($dest->getTara()->getNume(),$numeTara);
-      //  $this->_em->remove($dest);
-      try {
-        $this->_em->flush();
-      }
-    catch (\Doctrine\ORM\ORMException $e) {
-           echo "Caught Exception ('{$e->getMessage()}')\n";
-        } 
-    }
-    
+/*    
+//    public function testCanCreateOras()
+//    {
+//        $numeOras = 'Suceava';
+//        $numeTara = 'Romania';
+//        $tara = $this->_em->getRepository('Application_Model_Destinatie')->findOneByNume($numeTara);
+//        $oras = new Application_Model_Destinatie();
+//        $oras->setNume($numeOras);
+//        $oras->setTara($tara);
+//        $this->_em->persist($oras);
+//        try {
+//        	$this->_em->flush();
+//        } catch (PDOException $e) {
+//            echo "Destinatia deja exista"."\n";
+//        } 
+//        
+//        /**
+//         * @var $dest Application_Model_Destinatie
+//         */
+//      //  $dest = $this->_em->getRepository('Application_Model_Destinatie')->findOneByNume($numeOras);
+//        $this->assertEquals($dest->getNume(),$numeOras);
+//        $this->assertEquals($dest->getTara()->getNume(),$numeTara);
+//      //  $this->_em->remove($dest);
+//      /*
+//      try {
+//        $this->_em->flush();
+//      }
+//    catch (\Doctrine\ORM\ORMException $e) {
+//           echo "Caught Exception ('{$e->getMessage()}')\n";
+//        } 
+//    }
+ 
     public function tearDown() {
       	//$this->_em->remove($this->model);
     }

@@ -1,0 +1,272 @@
+PHPUnit 3.5.1 by Sebastian Bergmann.
+
+array(0) {
+}
+object(Zend_Form_Element_Textarea)#83 (29) {
+  ["helper"]=>
+  string(12) "formTextarea"
+  ["_allowEmpty":protected]=>
+  bool(true)
+  ["_autoInsertNotEmptyValidator":protected]=>
+  bool(true)
+  ["_belongsTo":protected]=>
+  NULL
+  ["_decorators":protected]=>
+  array(5) {
+    ["ViewHelper"]=>
+    array(2) {
+      ["decorator"]=>
+      string(10) "ViewHelper"
+      ["options"]=>
+      NULL
+    }
+    ["Errors"]=>
+    array(2) {
+      ["decorator"]=>
+      string(6) "Errors"
+      ["options"]=>
+      NULL
+    }
+    ["Description"]=>
+    array(2) {
+      ["decorator"]=>
+      string(11) "Description"
+      ["options"]=>
+      array(2) {
+        ["tag"]=>
+        string(1) "p"
+        ["class"]=>
+        string(11) "description"
+      }
+    }
+    ["HtmlTag"]=>
+    array(2) {
+      ["decorator"]=>
+      string(7) "HtmlTag"
+      ["options"]=>
+      array(2) {
+        ["tag"]=>
+        string(2) "dd"
+        ["id"]=>
+        string(17) "descriere-element"
+      }
+    }
+    ["Label"]=>
+    array(2) {
+      ["decorator"]=>
+      string(5) "Label"
+      ["options"]=>
+      array(1) {
+        ["tag"]=>
+        string(2) "dt"
+      }
+    }
+  }
+  ["_description":protected]=>
+  NULL
+  ["_disableLoadDefaultDecorators":protected]=>
+  bool(false)
+  ["_errorMessages":protected]=>
+  array(0) {
+  }
+  ["_errors":protected]=>
+  array(1) {
+    [0]=>
+    string(7) "isEmpty"
+  }
+  ["_errorMessageSeparator":protected]=>
+  string(2) "; "
+  ["_filters":protected]=>
+  array(1) {
+    ["Zend_Filter_StringTrim"]=>
+    object(Zend_Filter_StringTrim)#111 (1) {
+      ["_charList":protected]=>
+      NULL
+    }
+  }
+  ["_ignore":protected]=>
+  bool(false)
+  ["_isArray":protected]=>
+  bool(false)
+  ["_isError":protected]=>
+  bool(false)
+  ["_isErrorForced":protected]=>
+  bool(false)
+  ["_label":protected]=>
+  string(9) "Descriere"
+  ["_loaders":protected]=>
+  array(3) {
+    ["DECORATOR"]=>
+    object(Zend_Loader_PluginLoader)#84 (4) {
+      ["_loadedPluginPaths":protected]=>
+      array(0) {
+      }
+      ["_loadedPlugins":protected]=>
+      array(0) {
+      }
+      ["_prefixToPaths":protected]=>
+      array(1) {
+        ["Zend_Form_Decorator_"]=>
+        array(1) {
+          [0]=>
+          string(20) "Zend/Form/Decorator/"
+        }
+      }
+      ["_useStaticRegistry":protected]=>
+      NULL
+    }
+    ["VALIDATE"]=>
+    object(Zend_Loader_PluginLoader)#85 (4) {
+      ["_loadedPluginPaths":protected]=>
+      array(0) {
+      }
+      ["_loadedPlugins":protected]=>
+      array(1) {
+        ["NotEmpty"]=>
+        string(22) "Zend_Validate_NotEmpty"
+      }
+      ["_prefixToPaths":protected]=>
+      array(2) {
+        ["Zend_Validate_"]=>
+        array(1) {
+          [0]=>
+          string(14) "Zend/Validate/"
+        }
+        ["ZendX_Doctrine2_Validate_"]=>
+        array(1) {
+          [0]=>
+          string(25) "ZendX/Doctrine2/Validate/"
+        }
+      }
+      ["_useStaticRegistry":protected]=>
+      NULL
+    }
+    ["FILTER"]=>
+    object(Zend_Loader_PluginLoader)#110 (4) {
+      ["_loadedPluginPaths":protected]=>
+      array(0) {
+      }
+      ["_loadedPlugins":protected]=>
+      array(1) {
+        ["StringTrim"]=>
+        string(22) "Zend_Filter_StringTrim"
+      }
+      ["_prefixToPaths":protected]=>
+      array(1) {
+        ["Zend_Filter_"]=>
+        array(1) {
+          [0]=>
+          string(12) "Zend/Filter/"
+        }
+      }
+      ["_useStaticRegistry":protected]=>
+      NULL
+    }
+  }
+  ["_messages":protected]=>
+  array(1) {
+    ["isEmpty"]=>
+    string(36) "Value is required and can't be empty"
+  }
+  ["_name":protected]=>
+  string(9) "descriere"
+  ["_order":protected]=>
+  NULL
+  ["_required":protected]=>
+  bool(true)
+  ["_translator":protected]=>
+  NULL
+  ["_translatorDisabled":protected]=>
+  bool(false)
+  ["_type":protected]=>
+  NULL
+  ["_validators":protected]=>
+  array(1) {
+    ["Zend_Validate_NotEmpty"]=>
+    object(Zend_Validate_NotEmpty)#112 (11) {
+      ["_constants":protected]=>
+      array(13) {
+        [1]=>
+        string(7) "boolean"
+        [2]=>
+        string(7) "integer"
+        [4]=>
+        string(5) "float"
+        [8]=>
+        string(6) "string"
+        [16]=>
+        string(4) "zero"
+        [32]=>
+        string(5) "array"
+        [64]=>
+        string(4) "null"
+        [127]=>
+        string(3) "php"
+        [128]=>
+        string(5) "space"
+        [256]=>
+        string(6) "object"
+        [512]=>
+        string(12) "objectstring"
+        [1024]=>
+        string(11) "objectcount"
+        [2047]=>
+        string(3) "all"
+      }
+      ["_messageTemplates":protected]=>
+      array(2) {
+        ["isEmpty"]=>
+        string(36) "Value is required and can't be empty"
+        ["notEmptyInvalid"]=>
+        string(76) "Invalid type given, value should be float, string, array, boolean or integer"
+      }
+      ["_type":protected]=>
+      int(493)
+      ["_value":protected]=>
+      string(0) ""
+      ["_messageVariables":protected]=>
+      array(0) {
+      }
+      ["_messages":protected]=>
+      array(1) {
+        ["isEmpty"]=>
+        string(36) "Value is required and can't be empty"
+      }
+      ["_obscureValue":protected]=>
+      bool(false)
+      ["_errors":protected]=>
+      array(1) {
+        [0]=>
+        string(7) "isEmpty"
+      }
+      ["_translator":protected]=>
+      NULL
+      ["_translatorDisabled":protected]=>
+      bool(false)
+      ["zfBreakChainOnFailure"]=>
+      bool(true)
+    }
+  }
+  ["_validatorRules":protected]=>
+  array(0) {
+  }
+  ["_value":protected]=>
+  NULL
+  ["_view":protected]=>
+  NULL
+  ["_isPartialRendering":protected]=>
+  bool(false)
+}
+F
+
+Time: 0 seconds, Memory: 14.25Mb
+
+There was 1 failure:
+
+1) Application_Service_OfertaTest::testUpdateOferta
+Failed asserting that <boolean:false> is true.
+
+E:\sites\z100Turism\tests\application\services\OfertaTest.php:109
+
+FAILURES!
+Tests: 1, Assertions: 1, Failures: 1.

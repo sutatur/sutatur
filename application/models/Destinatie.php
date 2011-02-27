@@ -1,5 +1,5 @@
 <?php
-use \Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @Entity (repositoryClass="Application_Model_RepositoryDestinatie")
  * @Table (name="destinatie", uniqueConstraints={@UniqueConstraint(columns={"tara_id", "nume"})}))
@@ -33,7 +33,7 @@ class Application_Model_Destinatie
     private $tara;
     /**
      * Bidirectional - Returneaza circuitele pt o anumita destinatie
-     * @ManyToMany(targetEntity="Application_Model_Circuit", mappedBy="destinatii")
+     * @ManyToMany(targetEntity="Application_Model_Oferta_Circuit", mappedBy="destinatii")
      */
     private $destinatieCircuite;
     
@@ -124,9 +124,9 @@ class Application_Model_Destinatie
     }
     
     /**
-     * @param Application_Model_Circuit $circuit
+     * @param Application_Model_Oferta_Circuit $circuit
      */
-    public function adaugaCircuit(Application_Model_Circuit $circuit)
+    public function adaugaCircuit(Application_Model_Oferta_Circuit $circuit)
     {
     //    $this->destinatieCircuite[] = $circuit;
         $this->destinatieCircuite->add($circuit);

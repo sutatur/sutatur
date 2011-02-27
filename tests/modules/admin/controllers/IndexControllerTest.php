@@ -4,7 +4,7 @@ require_once 'Zend\Test\PHPUnit\ControllerTestCase.php';
 /**
  * IndexController test case.
  */
-class Modules_Admin_IndexControllerTest extends ControllerTestCase
+class Modules_Admin_IndexControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 {
     /**
      * Prepares the environment before running a test.

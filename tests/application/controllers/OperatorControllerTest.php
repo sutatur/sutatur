@@ -2,7 +2,7 @@
 
 require_once 'PHPUnit/Framework/TestCase.php';
 
-class OfertaControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
+class OperatorControllerTest extends PHPUnit_Framework_TestCase
 {
 
     public function setUp()

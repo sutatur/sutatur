@@ -1,5 +1,5 @@
 <?php
-class Model_StatsTest extends ControllerTestCase
+class Model_StatsTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {

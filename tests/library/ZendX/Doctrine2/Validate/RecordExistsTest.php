@@ -18,7 +18,7 @@ require_once 'ZendX/Doctrine2/Validate/RecordExists.php';
  * @subpackage UnitTests
  * @group      ZendX_Doctrine2
  */
-class ZendX_Doctrine2_Validate_RecordExistsTest extends ControllerTestCase
+class ZendX_Doctrine2_Validate_RecordExistsTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var \Doctrine\ORM\EntityManager

@@ -23,6 +23,11 @@ class Application_Service_Destinatie extends Application_Service_Abstract
         else
             return $this->dao->getRepository($this->modelClass)->getListaDestinatiiTara($taraId);
     }
+    
+    protected function populateModel(Application_Model_Abstract $model)
+    {
+        $model->populateData();
+    }
 
 }
 ?>

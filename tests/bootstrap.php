@@ -18,7 +18,7 @@ $_SERVER['SERVER_NAME'] = 'http://z100Turism';
  
 $includePaths = array(LIBRARY_PATH, get_include_path());
 set_include_path(implode(PATH_SEPARATOR, $includePaths));
- 
+
 require_once "Zend/Loader/Autoloader.php";
 #Zend_Loader::registerAutoload();
 $loader = Zend_Loader_Autoloader::getInstance();
@@ -29,4 +29,10 @@ $loader->suppressNotFoundWarnings(false);
 Zend_Session::$_unitTestEnabled = true;
 Zend_Session::start();
  
-require_once 'application/ControllerTestCase.php';
+//$application = new Zend_Application(
+//   APPLICATION_ENV,
+//   APPLICATION_PATH . '/configs/application.ini'
+//);
+//
+//$application->bootstrap();
+clearstatcache();

@@ -4,7 +4,7 @@ require_once 'PHPUnit\Framework\TestCase.php';
  * Application_Service_Oferta test case.
  * @group Application_Form
  */
-class Application_Form_OfertaSejurTest extends ControllerTestCase
+class Application_Form_OfertaSejurTest extends PHPUnit_Framework_TestCase
 {
 
     /**

@@ -1,16 +1,15 @@
 <?php
-use \Doctrine\Common\Collections\ArrayCollection;
 /**
  * @Entity
  * @Table (name="oferta")
  * @InheritanceType("SINGLE_TABLE")
  * @DiscriminatorColumn(name="tip_oferta", type="string")
- * @DiscriminatorMap({"circuit" = "Application_Model_Circuit", "sejur" = "Application_Model_Sejur"})
+ * @DiscriminatorMap({"circuit" = "Application_Model_Oferta_Circuit", "sejur" = "Application_Model_Oferta_Sejur"})
  * @HasLifecycleCallbacks
  * @author angel
  *
  */
-abstract class Application_Model_Oferta extends Application_Model_Abstract
+abstract class Application_Model_Oferta extends Application_Model_Abstract implements Application_Model_Entity
 {
  /**
      * @Id @Column (name="id", type="integer")
@@ -86,7 +85,7 @@ abstract class Application_Model_Oferta extends Application_Model_Abstract
     
     /**
      * Bidirectional
-     * @ManyToOne(targetEntity="Application_Model_CategorieOferta", inversedBy="oferte")
+     * @ManyToOne(targetEntity="Application_Model_Oferta_CategorieOferta", inversedBy="oferte")
      */
     private $categorieOferta;
     

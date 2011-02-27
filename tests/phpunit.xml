@@ -1,4 +1,4 @@
-<phpunit bootstrap="./bootstrap.php" color="true">
+<phpunit bootstrap="./Bootstrap.php" color="true">
     <testsuite name="100  Turism Test Suite">
         <directory>./</directory>
     </testsuite>
@@ -9,6 +9,7 @@
             <directory suffix=".php">../application/</directory>
             <exclude>
                 <directory suffix=".phtml">../application/</directory>
+                <file>bootstrap.php</file>
             </exclude>
         </whitelist>
     </filter>
